@@ -815,7 +815,6 @@ class MessageApi
     {
         $returnType = '\Karix\Model\MessageCreatedResponse';
         $request = $this->sendMessageRequest($message);
-
         try {
             $options = $this->createHttpClientOption();
             try {
@@ -1067,6 +1066,7 @@ class MessageApi
         );
 
         $query = \GuzzleHttp\Psr7\build_query($queryParams);
+
         return new Request(
             'POST',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),

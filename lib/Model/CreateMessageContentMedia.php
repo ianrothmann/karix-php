@@ -1,6 +1,6 @@
 <?php
 /**
- * CreateMessageContent
+ * CreateMessageContentMedia
  *
  * PHP version 5
  *
@@ -33,15 +33,15 @@ use \ArrayAccess;
 use \Karix\ObjectSerializer;
 
 /**
- * CreateMessageContent Class Doc Comment
+ * CreateMessageContentLocation Class Doc Comment
  *
  * @category Class
- * @description Content to be sent to the destinations. - For channel &#x60;sms&#x60; only &#x60;text&#x60; content is supported - For channel &#x60;whatsapp&#x60; one of either &#x60;text&#x60; or &#x60;location&#x60; is allowed
+ * @description Location content to be sent to destinations
  * @package  Karix
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class CreateMessageContent implements ModelInterface, ArrayAccess
+class CreateMessageContentMedia implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -50,7 +50,7 @@ class CreateMessageContent implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'CreateMessage_content';
+    protected static $swaggerModelName = 'CreateMessage_content_media';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -58,9 +58,9 @@ class CreateMessageContent implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'text' => 'string',
-        'location' => '\Karix\Model\CreateMessageContentLocation',
-        'media'=>'\Karix\Model\CreateMessageContentMedia'
+        'url' => 'string',
+        'caption' => 'string',
+        'type' => 'string',
     ];
 
     /**
@@ -69,9 +69,9 @@ class CreateMessageContent implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'text' => null,
-        'media' => null,
-        'location' => null
+        'url' => null,
+        'caption' => null,
+        'type' => null
     ];
 
     /**
@@ -107,9 +107,9 @@ class CreateMessageContent implements ModelInterface, ArrayAccess
      * @codeCoverageIgnore
      */
     protected static $attributeMap = [
-        'text' => 'text',
-        'media' => 'media',
-        'location' => 'location'
+        'url' => 'url',
+        'caption' => 'caption',
+        'type' => 'type',
     ];
 
     /**
@@ -118,9 +118,9 @@ class CreateMessageContent implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'text' => 'setText',
-        'media' => 'setMedia',
-        'location' => 'setLocation'
+        'url' => 'setUrl',
+        'caption' => 'setCaption',
+        'type' => 'setType'
     ];
 
     /**
@@ -129,9 +129,9 @@ class CreateMessageContent implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'text' => 'getText',
-        'media' => 'getMedia',
-        'location' => 'getLocation'
+        'url' => 'getUrl',
+        'caption' => 'getCaption',
+        'type' => 'getType',
     ];
 
     /**
@@ -202,9 +202,9 @@ class CreateMessageContent implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['text'] = isset($data['text']) ? $data['text'] : null;
-        $this->container['location'] = isset($data['location']) ? $data['location'] : null;
-        $this->container['media'] = isset($data['media']) ? $data['media'] : null;
+        $this->container['url'] = isset($data['url']) ? $data['url'] : null;
+        $this->container['caption'] = isset($data['caption']) ? $data['caption'] : null;
+        $this->container['type'] = isset($data['type']) ? $data['type'] : null;
     }
 
     /**
@@ -216,14 +216,9 @@ class CreateMessageContent implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['text']) && (mb_strlen($this->container['text']) > 4096)) {
-            $invalidProperties[] = "invalid value for 'text', the character length must be smaller than or equal to 4096.";
+        if ($this->container['url'] === null) {
+            $invalidProperties[] = "'url' can't be null";
         }
-
-        if (!is_null($this->container['text']) && (mb_strlen($this->container['text']) < 1)) {
-            $invalidProperties[] = "invalid value for 'text', the character length must be bigger than or equal to 1.";
-        }
-
         return $invalidProperties;
     }
 
@@ -240,82 +235,77 @@ class CreateMessageContent implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets text
+     * Gets url
+     *
+     * @return String
+     */
+    public function getUrl()
+    {
+        return $this->container['url'];
+    }
+
+    /**
+     * Sets url
+     *
+     * @param BigDecimal $url Url of the location to be sent
+     *
+     * @return $this
+     */
+    public function setUrl($url)
+    {
+        $this->container['url'] = $url;
+
+        return $this;
+    }
+
+    /**
+     * Gets caption
+     *
+     * @return BigDecimal
+     */
+    public function getCaption()
+    {
+        return $this->container['caption'];
+    }
+
+    /**
+     * Sets caption
+     *
+     * @param BigDecimal $caption Caption of the location to be sent
+     *
+     * @return $this
+     */
+    public function setCaption($caption)
+    {
+        $this->container['caption'] = $caption;
+
+        return $this;
+    }
+
+    /**
+     * Gets type
      *
      * @return string
      */
-    public function getText()
+    public function getType()
     {
-        return $this->container['text'];
+        return $this->container['type'];
     }
 
     /**
-     * Gets media
+     * Sets type
      *
-     * @return CreateMessageContentMedia
-     */
-    public function getMedia()
-    {
-        return $this->container['media'];
-    }
-
-    /**
-     * Sets text
-     *
-     * @param string $text Text content to be sent to destinations
+     * @param string $type Type which will be attached as heading to the location
      *
      * @return $this
      */
-    public function setText($text)
+    public function setType($type)
     {
-        if (!is_null($text) && (mb_strlen($text) > 4096)) {
-            throw new \InvalidArgumentException('invalid length for $text when calling CreateMessageContent., must be smaller than or equal to 4096.');
-        }
-        if (!is_null($text) && (mb_strlen($text) < 1)) {
-            throw new \InvalidArgumentException('invalid length for $text when calling CreateMessageContent., must be bigger than or equal to 1.');
-        }
-
-        $this->container['text'] = $text;
+        $this->container['type'] = $type;
 
         return $this;
     }
 
-    /**
-     * Sets media
-     *
-     * @param \Karix\Model\CreateMessageContentMedia $media media
-     *
-     * @return $this
-     */
-    public function setMedia($media)
-    {
-        $this->container['media'] = $media;
-        return $this;
-    }
-
-    /**
-     * Gets location
-     *
-     * @return \Karix\Model\CreateMessageContentLocation
-     */
-    public function getLocation()
-    {
-        return $this->container['location'];
-    }
-
-    /**
-     * Sets location
-     *
-     * @param \Karix\Model\CreateMessageContentLocation $location location
-     *
-     * @return $this
-     */
-    public function setLocation($location)
-    {
-        $this->container['location'] = $location;
-
-        return $this;
-    }
     /**
      * Returns true if offset exists. False otherwise.
      *

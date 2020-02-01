@@ -259,6 +259,7 @@ class Message implements ModelInterface, ArrayAccess
 
     const CONTENT_TYPE_TEXT = 'text';
     const CONTENT_TYPE_LOCATION = 'location';
+    const CONTENT_TYPE_MEDIA = 'media';
     const STATUS_QUEUED = 'queued';
     const STATUS_SENT = 'sent';
     const STATUS_FAILED = 'failed';
@@ -281,6 +282,7 @@ class Message implements ModelInterface, ArrayAccess
         return [
             self::CONTENT_TYPE_TEXT,
             self::CONTENT_TYPE_LOCATION,
+            self::CONTENT_TYPE_MEDIA
         ];
     }
     
